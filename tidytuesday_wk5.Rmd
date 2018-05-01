@@ -10,6 +10,8 @@ library(geojsonio)
 library(broom)
 library(rgeos)
 library(wesanderson)
+library(ghibli)
+library(ggthemes)
 ```
 
 ```{r}
@@ -52,16 +54,18 @@ head(spdf_fortified)
 
 ```{r fig.width=8, dpi=1200}
 
-spdf_fortified$bin = cut(spdf_fortified$Unemployment , breaks=c(seq(0,15,1), Inf), labels=c(seq(0,14),"15+"), include.lowest = TRUE)
+spdf_fortified$bin = cut(spdf_fortified$Unemployment , breaks=c(seq(0,15,1), Inf), labels=c(paste0(seq(0,14),"-",seq(1,15)),"15+"), include.lowest = TRUE)
 
 pal <- wes_palette(16, name = "Moonrise2", type = "continuous")
+pal2 <- wes_palette(16, name = "Darjeeling2", type = "continuous")
+pal_alt <- tableau_seq_gradient_pal("Orange")(seq(0,1,length=16))
 
 hex_plot <- ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
   geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
   theme_void() +
-  scale_fill_manual(values=pal, name="Unemployment rates %", guide = guide_legend( keyheight = unit(2, units = "mm"), 
-                                                                                   keywidth=unit(8, units = "mm"), label.position = "bottom",
+  scale_fill_manual(values=pal_alt, name="Unemployment rates %", guide = guide_legend( keyheight = unit(2, units = "mm"), 
+                                                                                   keywidth=unit(9, units = "mm"), label.position = "bottom",
                                                                                    title.position = 'top', nrow=1 ) ) +
   labs(title = "Unemployment Rates By State", 
        subtitle = "2015 American Community Survey 5-year estimates",
@@ -80,6 +84,8 @@ hex_plot <- ggplot() +
 
 hex_plot
 
-ggsave("hexplot.jpg", dpi = 1200)
+ggsave("hexplot_alt.jpg", dpi = 1200)
 ```
+
+
 
