@@ -63,7 +63,7 @@ hex_plot <- ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0.7, alpha=0.9, col="#f5f5f2") +
   geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
   theme_void() +
-  scale_fill_manual(values=pal_alt, name="Unemployment rates %", guide = guide_legend(keyheight = unit(3, units = "mm"), 
+  scale_fill_manual(values=pal, name="Unemployment rates %", guide = guide_legend(keyheight = unit(3, units = "mm"), 
                                                                                    keywidth=unit(10, units = "mm"), label.position = "bottom",
                                                                                    title.position = 'top', nrow=1 ) ) +
   labs(title = "Unemployment Rates By State", 
@@ -84,7 +84,7 @@ hex_plot <- ggplot() +
 
 hex_plot
 
-ggsave("hexplot_alt.jpg", dpi = 1200)
+ggsave("hexplot.jpg", dpi = 600)
 ```
 
 
