@@ -47,9 +47,7 @@ glimpse(df)
 
 # drop incorrectly included / duplicate rows
 df <- df[!(df$state %in% c("48","BI")),]
-df <- df[!(df$city %in% c("Mexico","MEXICO")),]
-
-
+df <- df[!(df$city %in% c("Mexico","MEXICO","Taylor", "Gahanna", "Ft Wayne")),]
 
 ```
 
@@ -67,14 +65,14 @@ sumsq <- function(shares) {
 df <- df %>%
   group_by(Postcode) %>%
   mutate(total = sum(sbux,dd,th),
-         sbux_share = sbux / total,
-         dd_share = dd / total,
-         th_share = th / total,
+         sbux_share = 100 * sbux / total,
+         dd_share = 100 * dd / total,
+         th_share = 100 * th / total,
          hhi = sumsq(c(sbux_share,dd_share,th_share)))
 
 ```
 
-```{r fig.height=8}
+```{r fig.height=7}
 
 pal <- wes_palette(n_distinct(df$state), name = "Darjeeling2", type = "continuous")
 
@@ -84,14 +82,17 @@ plot <- df %>%
   coord_flip() +
   theme_light() +
   scale_colour_manual(values = pal, name = "State") +
-  scale_y_continuous(breaks = c(0,0.2,0.4,0.6,0.8,1)) +
   labs(title = "Concentration of global coffee-chains (as of 2017 or 2018)",
        subtitle = "Selected markets (by zip code) containing Starbucks, Tim Hortons, and Dunkin Donuts",
-       # x = "Location", y = "Concentration (HHI)",
+       x = "Location", y = "Concentration (HHI)",
        caption = "By @DaveBloom11\nSources: kaggle.com, timhortons.com, odditysoftware.com") +
-    theme(text = element_text(family = "Times New Roman"),
+  theme(text = element_text(family = "Times New Roman", color = "#22211d"),
+        plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+        panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+        legend.background = element_rect(fill = "#f5f5f2"),
+        legend.key = element_rect(fill = "#f5f5f2"),
         plot.caption = element_text(size = 6))
 plot
-ggsave("concentration.jpg", dpi=600)
+ggsave("concentration.jpg", dpi=300)
 ```
 
