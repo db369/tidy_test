@@ -1,0 +1,97 @@
+---
+title: "TidyTuesday - Week 6"
+subtitle: "Global coffee-chain locations (as of 2017 or 2018)"
+author: '@DaveBloom11'
+date: "May 7, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(wesanderson)
+
+```
+
+
+## Import data
+```{r}
+sbux <- readxl::read_xlsx("data/week6_coffee_chains.xlsx", sheet = 1)
+th <- readxl::read_xlsx("data/week6_coffee_chains.xlsx", sheet = 2)
+dd <- readxl::read_xlsx("data/week6_coffee_chains.xlsx", sheet = 3)
+
+
+```
+
+```{r}
+
+dd_by_zip <- dd %>% 
+  group_by(e_postal) %>%
+  summarize(dd = n())
+dd_by_zip$Postcode <- as.character(dd_by_zip$e_postal)
+
+th_by_zip <- th %>%
+  group_by(postal_code) %>%
+  summarize(th = n())
+th_by_zip$Postcode <- as.character(th_by_zip$postal_code)
+
+df <- sbux %>%
+  group_by(Postcode, City, `State/Province`) %>%
+  summarize(sbux = n(), city = unique(City), state = unique(`State/Province`),
+            city_state = paste0(tools::toTitleCase(city),", ",state," ",unique(Postcode))) 
+
+df <- inner_join(df, dd_by_zip, by = "Postcode")
+df <- inner_join(df, th_by_zip, by = "Postcode")
+
+glimpse(df)
+
+# drop incorrectly included / duplicate rows
+df <- df[!(df$state %in% c("48","BI")),]
+df <- df[!(df$city %in% c("Mexico","MEXICO")),]
+
+
+
+```
+
+
+```{r}
+
+sumsq <- function(shares) {
+  temp <- 0
+  for (sh in shares){
+    temp = temp + sh^2
+  }
+  return(temp)
+}
+
+df <- df %>%
+  group_by(Postcode) %>%
+  mutate(total = sum(sbux,dd,th),
+         sbux_share = sbux / total,
+         dd_share = dd / total,
+         th_share = th / total,
+         hhi = sumsq(c(sbux_share,dd_share,th_share)))
+
+```
+
+```{r fig.height=8}
+
+pal <- wes_palette(n_distinct(df$state), name = "Darjeeling2", type = "continuous")
+
+plot <- df %>%
+  ggplot(aes(x = fct_reorder(city_state,hhi), y = hhi, col = state)) +
+  geom_point(size = 3) +
+  coord_flip() +
+  theme_light() +
+  scale_colour_manual(values = pal, name = "State") +
+  scale_y_continuous(breaks = c(0,0.2,0.4,0.6,0.8,1)) +
+  labs(title = "Concentration of global coffee-chains (as of 2017 or 2018)",
+       subtitle = "Selected markets (by zip code) containing Starbucks, Tim Hortons, and Dunkin Donuts",
+       # x = "Location", y = "Concentration (HHI)",
+       caption = "By @DaveBloom11\nSources: kaggle.com, timhortons.com, odditysoftware.com") +
+    theme(text = element_text(family = "Times New Roman"),
+        plot.caption = element_text(size = 6))
+plot
+ggsave("concentration.jpg", dpi=600)
+```
+
