@@ -10,7 +10,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(wesanderson)
-
+library(extrafont)
+#library(emojifont)
 ```
 
 
@@ -140,6 +141,35 @@ dark_plot
 ggsave("concentration_dark.jpg", dpi=300)
 
 ```
+
+```{r fig.height=9}
+
+dark_plot2 <- df %>%
+  ggplot(aes(x = fct_reorder(city_state,hhi), y = hhi)) +
+  geom_text(label = "", aes(col = dominant_share), size=5) +
+  coord_flip() +
+  scale_colour_manual(values = c("Starbucks" = "#006341", "Tim Hortons" = "#AC1F2D", "Dunkin Donuts" = "#F5821F","None" = "#BBBBBB"), name = "Coffee chain with\nhighest market share") +
+  labs(title = "Concentration of global coffee-chains (as of 2017 or 2018)",
+       subtitle = "Selected markets (by zip code) containing Starbucks, Tim Hortons, and Dunkin Donuts",
+       x = "Location", y = "Concentration (HHI)",
+       caption = "By @DaveBloom11\nSources: kaggle.com, timhortons.com, odditysoftware.com") +
+  theme(text = element_text(family = "Bitstream", color = "#F2F1Fd"),
+        panel.grid = element_blank(),
+        plot.background = element_rect(fill = "#050502", color = NA), 
+        panel.background = element_rect(fill = "#202020", color = NA), 
+        axis.text = element_text(size = 11, family = "Bitstream", color = "#F2F1Fd", hjust = 1),
+        legend.background = element_rect(fill = "#050502"),
+        legend.key = element_rect(color = "#050502", fill = "#050502"),
+        plot.title = element_text(size = 16),
+        plot.caption = element_text(size = 6))
+dark_plot2
+
+ggsave("concentration_dark_2.jpg", dpi=300)
+
+
+
+```
+
 
 
 ```{r}

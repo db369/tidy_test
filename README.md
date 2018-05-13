@@ -13,7 +13,6 @@ See https://github.com/rfordatascience/tidytuesday for more information on #Tidy
 ![code](code.png)
 
 
-![work_in_progress...](concentration_dark.jpg)
+I'm also working on a dark theme using a FontAwesome glyph (coffee cup) as a point and coloring by coffee chain with dominant market share (if not not equal). I first used a unicode coffee cup symbol, but it didn't look quite as good (in my opinion). It's a work in progress...
 
-
-![code](carbon.png)
+![work_in_progress...](concentration_dark_2.jpg)
