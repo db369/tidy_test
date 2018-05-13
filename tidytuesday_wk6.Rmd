@@ -57,7 +57,7 @@ df <- df[!(df$city %in% c("Mexico","MEXICO","Taylor", "Gahanna", "Ft Wayne")),]
 sumsq <- function(shares) {
   temp <- 0
   for (sh in shares){
-    temp = temp + sh^2
+    temp <- temp + sh^2
   }
   return(temp)
 }
@@ -97,6 +97,7 @@ ggsave("concentration.jpg", dpi=300)
 ```
 
 ```{r fig.height=8}
+library(ggplot2)
 source("geom_coffee.R")
 
 df <- df %>% 
@@ -117,7 +118,7 @@ dark_plot <- df %>%
   geom_coffee(aes(x = fct_reorder(city_state,hhi), y = hhi), size = 8) +
   coord_flip() +
   #theme_void() +
-  scale_colour_manual(values = c("Starbucks" = "#006341", "Tim Hortons" = "#AC1F2D", "Dunkin Donuts" = "#F5821F","None" = "#DDDDDD"), name = "Coffee chain with\nhighest market share", guide = guide_legend(keyheight = unit(3, units = "mm"), keywidth=unit(10, units = "mm"), label.position = "right", title.position = 'top', nrow=4 )) +
+  scale_colour_manual(values = c("Starbucks" = "#006341", "Tim Hortons" = "#AC1F2D", "Dunkin Donuts" = "#F5821F","None" = "#DDDDDD"), name = "Coffee chain with\nhighest market share") +
   #guides(colour = guide_legend(override.aes = list(size = 8, shape = '\u2615'))) +
   #scale_color_viridis_d()+
   #rcartocolor::scale_color_carto_d(palette = "Vivid", name = "State") +
@@ -128,7 +129,7 @@ dark_plot <- df %>%
   theme(text = element_text(family = "Bitstream", color = "#F2F1Fd"),
         panel.grid = element_blank(),
         plot.background = element_rect(fill = "#050502", color = NA), 
-        panel.background = element_rect(fill = "#252525", color = NA), 
+        panel.background = element_rect(fill = "#202020", color = NA), 
         axis.text = element_text(size = 11, family = "Bitstream", color = "#F2F1Fd", hjust = 1),
         legend.background = element_rect(fill = "#050502"),
         legend.key = element_rect(color = "#050502", fill = "#050502"),
