@@ -11,11 +11,8 @@ See https://github.com/rfordatascience/tidytuesday for more information on #Tidy
 ![chart](concentration.jpg)
 
 <details>
-  <summary> < click here for code > 
-  </summary>
-    <p>
-      <a img = code.png></a>
-    </p>
+  <summary> . . . click here for code . . . </summary>
+      <img src = "code.png">
 </details>
 
 
