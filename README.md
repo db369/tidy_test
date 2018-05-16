@@ -14,7 +14,7 @@ See https://github.com/rfordatascience/tidytuesday for more information on #Tidy
   <summary> < click here for code > 
   </summary>
     <p>
-      ![code](code.png)
+      <a img = code.png></a>
     </p>
 </details>
 
