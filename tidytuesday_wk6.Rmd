@@ -3,7 +3,7 @@ title: "TidyTuesday - Week 6"
 subtitle: "Global coffee-chain locations (as of 2017 or 2018)"
 author: '@DaveBloom11'
 date: "May 7, 2018"
-output: html_document
+output: markdown
 ---
 
 ```{r setup, include=FALSE}
