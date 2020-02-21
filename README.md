@@ -1,11 +1,25 @@
+<<<<<<< HEAD
+# TidyTuesday - Week 4
+### Gender differences in taxable income in Australia
+
+My contribution to week 4 of TidyTuesday. 
+=======
 # tidytuesday_wk5
 ### County-level American Community Survey (5-year estimates) 2015
 
 My contribution to week 5 of TidyTuesday. (Can't stop tweaking this... )
+>>>>>>> tt5/master
 
 See https://github.com/rfordatascience/tidytuesday for more information.
 
 
+<<<<<<< HEAD
+![Top 25 occupations for females, by income](top_25.png)
+
+![Top and bottom 15 by difference in income](top_bottom.png)
+
+![code](carbon_code.png)
+=======
 
 ![First](hexplot.jpg)
 
@@ -70,3 +84,4 @@ hex_plot +
 ggsave("hexplot_alt.jpg")
 
 ```
+>>>>>>> tt5/master
