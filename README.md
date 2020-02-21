@@ -1,32 +1,22 @@
-<<<<<<< HEAD
-# TidyTuesday - Week 4
-### Gender differences in taxable income in Australia
-
-My contribution to week 4 of TidyTuesday. 
-=======
-# tidytuesday_wk5
-### County-level American Community Survey (5-year estimates) 2015
-
-My contribution to week 5 of TidyTuesday. (Can't stop tweaking this... )
->>>>>>> tt5/master
-
+# TidyTuesday
 See https://github.com/rfordatascience/tidytuesday for more information.
 
+### Gender differences in taxable income in Australia
+![Top 25 occupations for females, by income](tt4/top_25.png)
 
-<<<<<<< HEAD
-![Top 25 occupations for females, by income](top_25.png)
+![Top and bottom 15 by difference in income](tt4/top_bottom.png)
 
-![Top and bottom 15 by difference in income](top_bottom.png)
 
-![code](carbon_code.png)
-=======
+### County-level American Community Survey (5-year estimates) 2015
+![First](tt5/hexplot.jpg)
 
-![First](hexplot.jpg)
+![Second version](tt5/hexplot2.jpg)
 
-![Second version](hexplot2.jpg)
+![Third version](tt5/hexplot_alt.jpg)
 
-![Third version](hexplot_alt.jpg)
 
+<details>
+  <summary> . . . click here for code . . . </summary>
 ```r
 library(tidyverse)
 library(geojsonio)
@@ -57,22 +47,22 @@ hex_plot <- ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0.7, alpha=0.9, col="#f5f5f2") +
   geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
   theme_void() +
-  scale_fill_manual(values=pal, name="Unemployment rates %", guide = guide_legend(keyheight = unit(2, units = "mm"), 
-                                                                                  keywidth = unit(8, units = "mm"), 
+  scale_fill_manual(values=pal, name="Unemployment rates %", guide = guide_legend(keyheight = unit(2, units = "mm"),
+                                                                                  keywidth = unit(8, units = "mm"),
                                                                                   title.position = "top", label.position = "bottom",
                                                                                   title.hjust = 0.5, label.hjust = 0, nrow = 1) ) +
-  labs(title = "Unemployment Rates By State", 
+  labs(title = "Unemployment Rates By State",
        subtitle = "2015 American Community Survey 5-year estimates",
-       caption = "\nBy @DaveBloom11  |  Source: 2015 American Community Survey " ) 
+       caption = "\nBy @DaveBloom11  |  Source: 2015 American Community Survey " )
 
-hex_plot + 
+hex_plot +
   theme(
     legend.position = c(0.5, 0.9),
     legend.title = element_text(size = 8),
     legend.text = element_text(size = 7),
     text = element_text(color = "#22211d"),
-    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    plot.background = element_rect(fill = "#f5f5f2", color = NA),
+    panel.background = element_rect(fill = "#f5f5f2", color = NA),
     legend.background = element_rect(fill = "#f5f5f200", color = NA),
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
     plot.subtitle = element_text(size= 12, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
@@ -81,7 +71,5 @@ hex_plot +
   ) +
   coord_map()
 
-ggsave("hexplot_alt.jpg")
-
 ```
->>>>>>> tt5/master
+</details>
